@@ -1,0 +1,16 @@
+{
+  "issuer": "https://idp.example.invalid/oidc",
+  "audience": "projects/123456/locations/global/workloadIdentityPools/demo/providers/ci",
+  "max_token_age_seconds": 1800,
+  "allowed_org_ids": ["org-204"],
+  "allowed_repositories": ["sample-org/agent-runtime"],
+  "allowed_refs": ["refs/heads/main"],
+  "permissions": {
+    "artifactReader": [{"resource": "projects/demo/artifacts/*", "actions": ["read"]}],
+    "releasePublisher": [{"resource": "projects/demo/releases/*", "actions": ["create", "read"]}]
+  },
+  "bindings": [
+    {"name": "ci-artifact-reader", "role": "artifactReader", "repository": "sample-org/agent-runtime", "ref": "refs/heads/main", "environment": "test"},
+    {"name": "prod-release-publisher", "role": "releasePublisher", "repository": "sample-org/agent-runtime", "ref": "refs/heads/main", "environment": "production"}
+  ]
+}

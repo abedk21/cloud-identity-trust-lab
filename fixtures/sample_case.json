@@ -1,0 +1,16 @@
+{
+  "now": 1770000200,
+  "claims": {
+    "iss": "https://idp.example.invalid/oidc",
+    "aud": "projects/123456/locations/global/workloadIdentityPools/demo/providers/ci",
+    "iat": 1770000000,
+    "nbf": 1770000000,
+    "exp": 1770000500,
+    "repository_owner_id": "org-204",
+    "repository": "sample-org/agent-runtime",
+    "ref": "refs/heads/main",
+    "environment": "test",
+    "sub": "repo:sample-org/agent-runtime:ref:refs/heads/main"
+  },
+  "request": {"action": "read", "resource": "projects/demo/artifacts/model-v2"}
+}

@@ -1,0 +1,83 @@
+{
+  "scenarios": [
+    {
+      "id": "valid-read",
+      "claim_overrides": {},
+      "request_overrides": {},
+      "expected_allowed": true,
+      "expected_reason": "PERMITTED"
+    },
+    {
+      "id": "wrong-issuer",
+      "claim_overrides": {
+        "iss": "https://untrusted.example.invalid"
+      },
+      "request_overrides": {},
+      "expected_allowed": false,
+      "expected_reason": "ISSUER_MISMATCH"
+    },
+    {
+      "id": "cross-org",
+      "claim_overrides": {
+        "repository_owner_id": "org-999"
+      },
+      "request_overrides": {},
+      "expected_allowed": false,
+      "expected_reason": "ORG_NOT_ALLOWED"
+    },
+    {
+      "id": "untrusted-branch",
+      "claim_overrides": {
+        "ref": "refs/heads/experimental"
+      },
+      "request_overrides": {},
+      "expected_allowed": false,
+      "expected_reason": "REF_NOT_ALLOWED"
+    },
+    {
+      "id": "spoofed-subject",
+      "claim_overrides": {
+        "sub": "repo:other/repo:ref:refs/heads/main"
+      },
+      "request_overrides": {},
+      "expected_allowed": false,
+      "expected_reason": "SUBJECT_BINDING_MISMATCH"
+    },
+    {
+      "id": "expired",
+      "claim_overrides": {
+        "exp": 1770000200
+      },
+      "request_overrides": {},
+      "expected_allowed": false,
+      "expected_reason": "EXPIRED"
+    },
+    {
+      "id": "no-write-on-read-role",
+      "claim_overrides": {},
+      "request_overrides": {
+        "action": "create"
+      },
+      "expected_allowed": false,
+      "expected_reason": "NO_MATCHING_BINDING"
+    },
+    {
+      "id": "path-traversal",
+      "claim_overrides": {},
+      "request_overrides": {
+        "resource": "projects/demo/artifacts/../secrets"
+      },
+      "expected_allowed": false,
+      "expected_reason": "INVALID_RESOURCE_OR_ACTION"
+    },
+    {
+      "id": "wrong-audience",
+      "claim_overrides": {
+        "aud": "another-service"
+      },
+      "request_overrides": {},
+      "expected_allowed": false,
+      "expected_reason": "AUDIENCE_MISMATCH"
+    }
+  ]
+}
